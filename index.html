@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Chairs</title>
+</head>
+<body>
+    <h1>Chairs Site</h1>
+    <div id="app">
+        <h2>Get all</h2>
+        <button id="getAllButton" v-on:click="getAllChair" class="btn btn-primary">Get All Chairs</button>
+        <table class="table" v-if="chairs.length">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Modelen</th>
+                    <th>MaxWeight</th>
+                    <th>HasPillow</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="chair in chairs">
+                    <td>{{ chair.id }}</td>
+                    <td>{{ chair.modelen }}</td>
+                    <td>{{ chair.maxWeight }}</td>
+                    <td>{{ chair.hasPillow }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div v-else>No Chair</div>
+
+        <h2>Add (POST)</h2>
+        <input v-model="addData.modelen" placeholder="Modelen" type="text" id="inputModelen"/>
+        <input v-model.number="addData.maxWeight" placeholder="MaxWeight" type="number" id="inputMaxWeight"/>
+        <label>
+            <input id="inputHasPillow" v-model="addData.hasPillow" type="checkbox"/>
+            HasPillow
+        </label>
+        <button v-on:click="addChair()" class="btn btn-success" id="createButton">Add</button>
+        <div v-if="addMessage">
+            <div id="addMessage">{{addMessage}}</div>
+        </div>
+
+        <h2>Delete (DELETE)</h2>
+        <input v-model.number="deleteId" placeholder="ID" type="number" id="deleteId" />
+        <button v-on:click="deleteChair(deleteId)" class="btn btn-warning">Delete</button>
+        <div v-if="deleteMessage">
+            <div id="deleteMessage">{{deleteMessage}}</div>
+        </div>
+    </div>
+    <script src="Index.js"></script>
+</body>
+</html>
